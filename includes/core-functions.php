@@ -29,8 +29,23 @@ function database_dump_callback() {
     $host = DB_HOST;
     $database = DB_NAME;
     $dir = get_home_path();
-    exec("mysqldump --user={$user} --password={$pass} --host={$host} {$database} --result-file={$dir}/db.sql");
-    $response = "Database dumped to db.sql on the root path of this amazing site";
+
+    // Test if wp-cli is working on server
+    $info = shell_exec("wp --info");
+    // Works only with WP-CLI installed on server
+    if (!empty($info)) {
+        // Do WP-CLI-specific things.
+        shell_exec("wp db export {$dir}/db.sql");
+    } else {
+        // Works only if server allows shell execution of mysqldump
+        exec(
+            "mysqldump --user={$user} --password={$pass} --host={$host} {$database} --result-file={$dir}/db.sql"
+        );
+        // TODO:
+        // Check if the file size of db.sql is zero, then alert user.
+    }
+    $response =
+        "Database dumped to db.sql on the root path of this amazing site";
     echo $response;
     wp_die();
 }

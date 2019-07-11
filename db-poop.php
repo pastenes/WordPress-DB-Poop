@@ -8,10 +8,10 @@ Author:            Richard Pastenes
 Author URI:        https://richard.pastenes.com
 Donate link:       https://richard.pastenes.com
 Tags:              database, mysql
-Version:           1.0
+Version:           1.4
 Stable tag:        1.0
 Requires at least: 4.5
-Tested up to:      4.8
+Tested up to:      5.2.2
 Text Domain:       db-poop
 Domain Path:       /languages
 License:           GPL v2 or later
